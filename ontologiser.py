@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
+st.markdown("# The Ontologiser  ", unsafe_allow_html=False, help=None)
+st.markdown("_AI ontology extraction tool_", unsafe_allow_html=False, help=None)
+
 uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None:
@@ -10,14 +13,17 @@ if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     st.write(dataframe)
 
-
-    option = st.selectbox("Which column has your data in it?",list(dataframe.columns),
-#                 index=None,
-                 placeholder="Select contact method...",)
+    option = st.selectbox("Which column has your data in it?",list(dataframe.columns),placeholder="Select contact method...",)
     st.write('You selected:', option)
 
     st.slider('How many groups are you looking for?', 0, 25, 8)
     title = st.text_input('Any additional context for the AI to consider', '')
+
+    modelType = st.selectbox("What kind of modelling are you doing?",("Data Modelling", 
+                                                                      "Functional Modelling", 
+                                                                      "Pain Point Identification",
+                                                                      "Pain Point Theming"), placeholder="Select modelling type...",)
+    
     if st.button("Generate domains", type="secondary"):
         st.write('Potatoes; Donkeys')
 
