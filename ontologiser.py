@@ -6,6 +6,7 @@ import openai
 import streamlit as st
 import pandas as pd
 from io import StringIO
+import math
 
 if openai.api_key not in st.session_state:
   openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -25,6 +26,7 @@ prompt = PromptTemplate(
     {content_instructions}
     {additional_prompts}
     format them according to: {format_instructions} \\
+    Make sure you only return a single entity per list item.
     The values are as follows:
     {data}
     
